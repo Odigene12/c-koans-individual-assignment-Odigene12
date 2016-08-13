@@ -35,7 +35,7 @@ namespace DotNetKoans.CSharp
             Assert.True(array.IsFixedSize);
 
             //...it means we can't do this: array[1] = 13;
-            Assert.Throws(typeof(List<>), delegate() { array[1] = 13; });
+            Assert.Throws(typeof(System.IndexOutOfRangeException), delegate() { array[1] = 13; });
 
             //This is because the array is fixed at length 1. You could write a function
             //which created a new array bigger than the last, copied the elements over, and
@@ -45,7 +45,7 @@ namespace DotNetKoans.CSharp
             Assert.Equal(array, dynamicArray.ToArray());
 
             dynamicArray.Add(13);
-            Assert.Equal((new int[] { 42, (int)FILL_ME_IN}), dynamicArray.ToArray());
+            Assert.Equal((new int[] { 42, (int)13}), dynamicArray.ToArray());
         }
 
         [Koan(3)]
@@ -53,8 +53,8 @@ namespace DotNetKoans.CSharp
         {
             var array = new[] { "peanut", "butter", "and", "jelly" };
 
-            Assert.Equal(FILL_ME_IN, array[0]);
-            Assert.Equal(FILL_ME_IN, array[3]);
+            Assert.Equal("peanut", array[0]);
+            Assert.Equal("jelly", array[3]);
             
             //This doesn't work: Assert.Equal(FILL_ME_IN, array[-1]);
         }
@@ -64,8 +64,8 @@ namespace DotNetKoans.CSharp
         {
             var array = new[] { "peanut", "butter", "and", "jelly" };
 
-			Assert.Equal(new string[] { (string)FILL_ME_IN, (string)FILL_ME_IN }, array.Take(2).ToArray());
-			Assert.Equal(new string[] { (string)FILL_ME_IN, (string)FILL_ME_IN }, array.Skip(1).Take(2).ToArray());
+			Assert.Equal(new string[] { (string)"peanut", (string)"butter" }, array.Take(2).ToArray());
+			Assert.Equal(new string[] { (string)"butter", (string)"and" }, array.Skip(1).Take(2).ToArray());
         }
     }
 }
